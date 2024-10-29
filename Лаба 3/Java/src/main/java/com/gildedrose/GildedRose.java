@@ -21,49 +21,49 @@ class GildedRose {
         }
     }
 
+    private void increaseQuality(Item item) {
+        if (item.quality < 50) {
+            item.quality = item.quality + 1;
+        }
+    }
+
     private static boolean isExpired(Item item) {
         return item.sellIn < 0;
     }
 
     private void updateQuality(Item item) {
         if (item.name.equals("Aged Brie")) {
-            if (item.quality < 50) {
-                item.quality = item.quality + 1;
-            }
+            increaseQuality(item);
         } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
             if (item.quality < 50) {
                 item.quality = item.quality + 1;
 
                 if (item.sellIn < 11) {
-                    if (item.quality < 50) {
-                        item.quality = item.quality + 1;
-                    }
+                    increaseQuality(item);
                 }
 
                 if (item.sellIn < 6) {
-                    if (item.quality < 50) {
-                        item.quality = item.quality + 1;
-                    }
+                    increaseQuality(item);
                 }
+            }
         } else if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
-                return
+            return; // Додано крапку з комою
+        } else if (item.quality > 0) {
+            item.quality = item.quality - 1;
         }
-        else if (item.quality > 0) {
-        item.quality = item.quality - 1;
-        }
-
     }
-
 
     private void updateExpiration(Item item) {
         if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
-            return
+            return; // Додано крапку з комою
         }
         item.sellIn--;
     }
 
     private void processExpired(Item item) {
-        if (!item.name.equals("Aged Brie")) {
+        if (item.name.equals("Aged Brie")) {
+            increaseQuality(item);
+        } else {
             if (!item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                 if (item.quality > 0) {
                     if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
@@ -72,10 +72,6 @@ class GildedRose {
                 }
             } else {
                 item.quality = 0;
-            }
-        } else {
-            if (item.quality < 50) {
-                item.quality = item.quality + 1;
             }
         }
     }
