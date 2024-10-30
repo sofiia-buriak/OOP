@@ -1,73 +1,80 @@
 package com.gildedrose;
 
 public class InventoryItem {
+    public static final String AGED_BRIE = "Aged Brie";
     private Item item;
+
+    public static create(Item item){
+        return new InventoryItem(item);
+    }
 
     public InventoryItem(Item item) {
         this.item = item;
     }
 
-    public void updateItem(Item item) {
-        updateQuality(item);
-        updateExpiration(item);
-        if (isExpired(item)) {
-            processExpired(item);
+
+
+    public void dailyItem(Item item) {
+        updateQuality();
+        updateExpiration();
+        if (isExpired()) {
+            processExpired();
         }
     }
 
-    protected static void decreaseQuality(Item item) {
+    protected static void decreaseQuality() {
         if (item.quality > 0) {
             item.quality = item.quality - 1;
         }
     }
 
-    protected void increaseQuality(Item item) {
+    protected void increaseQuality() {
         if (item.quality < 50) {
             item.quality = item.quality + 1;
         }
     }
 
-    protected static boolean isExpired(Item item) {
+    protected static boolean isExpired() {
         return item.sellIn < 0;
     }
 
-    protected void updateQuality(Item item) {
-        if (item.name.equals("Aged Brie")) {
-            increaseQuality(item);
+    protected void updateQuality() {
+        if (item.name.equals(AGED_BRIE)) {
+            increaseQuality();
         } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-            increaseQuality(item);
+            increaseQuality();
 
             if (item.sellIn < 11) {
-                increaseQuality(item);
+                increaseQuality();
             }
 
             if (item.sellIn < 6) {
-                increaseQuality(item);
+                increaseQuality();
             }
         } else if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
-            return; // Додано крапку з комою
+            return;
         } else {
-            decreaseQuality(item);
+            decreaseQuality();
         }
     }
 
-    protected void updateExpiration(Item item) {
+    protected void updateExpiration() {
         if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
-            return; // Додано крапку з комою
+            return;
         }
         item.sellIn--;
     }
 
-    protected void processExpired(Item item) {
+    protected void processExpired() {
         if (item.name.equals("Aged Brie")) {
-            increaseQuality(item);
+            increaseQuality();
         } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
             item.quality = 0;
         } else {
             if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
                 return;
             }
-            decreaseQuality(item);
+            decreaseQuality();
         }
     }
 
