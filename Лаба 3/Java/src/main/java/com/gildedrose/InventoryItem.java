@@ -2,11 +2,14 @@ package com.gildedrose;
 
 public class InventoryItem {
     public static final String AGED_BRIE = "Aged Brie";
+    public static final String BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
     private Item item;
 
-    public static create(Item item){
+    public static InventoryItem create(Item item) {
         if (item.name.equals(AGED_BRIE)) {
-            return new AgreBrie(item);
+            return new AgedBrie(item);
+        } else if (item.name.equals(BACKSTAGE_PASSES)) {
+            return new BackstagePasses(item);
         }
         return new InventoryItem(item);
     }
@@ -15,9 +18,7 @@ public class InventoryItem {
         this.item = item;
     }
 
-
-
-    public void dailyItem(Item item) {
+    public void dailyUpdate() {
         updateQuality();
         updateExpiration();
         if (isExpired()) {
@@ -25,7 +26,7 @@ public class InventoryItem {
         }
     }
 
-    protected static void decreaseQuality() {
+    protected void decreaseQuality() {
         if (item.quality > 0) {
             item.quality = item.quality - 1;
         }
@@ -37,12 +38,12 @@ public class InventoryItem {
         }
     }
 
-    protected static boolean isExpired() {
+    protected boolean isExpired() {
         return item.sellIn < 0;
     }
 
     protected void updateQuality() {
-        if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+        if (item.name.equals(BACKSTAGE_PASSES)) {
             increaseQuality();
 
             if (item.sellIn < 11) {
@@ -67,9 +68,7 @@ public class InventoryItem {
     }
 
     protected void processExpired() {
-        if (item.name.equals("Aged Brie")) {
-            increaseQuality();
-        } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+        if (item.name.equals(BACKSTAGE_PASSES)) {
             item.quality = 0;
         } else {
             if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
@@ -78,5 +77,4 @@ public class InventoryItem {
             decreaseQuality();
         }
     }
-
 }
