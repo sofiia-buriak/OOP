@@ -6,7 +6,7 @@ public class Item {
 
     public int sellIn;
 
-    public int quality;
+    public ItemQuality quality;
 
     public Item(String name, int sellIn, int quality) {
         this.name = name;
