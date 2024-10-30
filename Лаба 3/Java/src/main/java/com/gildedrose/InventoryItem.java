@@ -1,19 +1,17 @@
 package com.gildedrose;
 
 public class InventoryItem {
-    public static final String AGED_BRIE = "Aged Brie";
-    public static final String BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
-    public static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
+
     protected Item item;
 
     public static InventoryItem create(Item item) {
-        if (item.name.equals(AGED_BRIE)) {
+        if (item.name.equals(AgedBrie.NAME)) {
             return new AgedBrie(item);
         }
-        if (item.name.equals(BACKSTAGE_PASSES)) {
+        if (item.name.equals(BackstagePasses.NAME)) {
             return new BackstagePasses(item);
         }
-        if (item.name.equals(SULFURAS)) {
+        if (item.name.equals(Sulfuras.NAME)) {
             return new Sulfuras(item);
         }
         return new InventoryItem(item);
