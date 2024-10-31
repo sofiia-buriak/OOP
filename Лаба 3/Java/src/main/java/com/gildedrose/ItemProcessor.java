@@ -12,4 +12,21 @@ public class ItemProcessor {
             processItem(item);
         }
     }
+
+    private void processItem(Item item) {
+        createInventoryItem(item).dailyUpdate();
+    }
+
+    private InventoryItem createInventoryItem(Item item) {
+        if (item.getName().equals(AgedBrie.NAME)) {
+            return new AgedBrie(item);
+        }
+        if (item.getName().equals(BackstagePasses.NAME)) {
+            return new BackstagePasses(item);
+        }
+        if (item.getName().equals(Sulfuras.NAME)) {
+            return new Sulfuras(item);
+        }
+        return new InventoryItem(item);
+    }
 }

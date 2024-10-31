@@ -1,59 +1,34 @@
 package com.gildedrose;
 
 public class InventoryItem {
-
-    protected Item item;
-
-    public static InventoryItem create(Item item) {
-        if (item.name.equals(AgedBrie.NAME)) {
-            return new AgedBrie(item);
-        }
-        if (item.name.equals(BackstagePasses.NAME)) {
-            return new BackstagePasses(item);
-        }
-        if (item.name.equals(Sulfuras.NAME)) {
-            return new Sulfuras(item);
-        }
-        return new InventoryItem(item);
-    }
+    private final Item item;
 
     public InventoryItem(Item item) {
         this.item = item;
     }
 
     public void dailyUpdate() {
-        updateQuality();
+        QualityUpdater updater = new QualityUpdater(item.getProperties());
+        updateQuality(updater);
         updateExpiration();
         if (isExpired()) {
-            processExpired();
+            processExpired(updater);
         }
     }
 
-    protected void decreaseQuality() {
-        if (item.quality > 0) {
-            item.quality--;
-        }
-    }
-
-    protected void increaseQuality() {
-        if (item.quality < 50) {
-            item.quality++;
-        }
-    }
-
-    protected boolean isExpired() {
-        return item.sellIn < 0;
-    }
-
-    protected void updateQuality() {
-        decreaseQuality();
+    protected void updateQuality(QualityUpdater updater) {
+        updater.decrease();
     }
 
     protected void updateExpiration() {
-        item.sellIn--;
+        item.getProperties().getSellIn().decrease();
     }
 
-    protected void processExpired() {
-        decreaseQuality();
+    protected boolean isExpired() {
+        return item.getProperties().getSellIn().isExpired();
+    }
+
+    protected void processExpired(QualityUpdater updater) {
+        updater.decrease();
     }
 }

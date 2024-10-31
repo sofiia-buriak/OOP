@@ -8,11 +8,8 @@ public class Sulfuras extends InventoryItem {
     }
 
     @Override
-    protected void updateQuality() {}
+    protected void updateQuality(QualityUpdater updater) { }
 
     @Override
-    protected void updateExpiration() {}
-
-    @Override
-    protected void processExpired() {}
+    protected void updateExpiration() { }
 }
