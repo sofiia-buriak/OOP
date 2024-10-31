@@ -1,3 +1,5 @@
+package com.gildedrose;
+
 public class ItemQuality {
     private int value;
 

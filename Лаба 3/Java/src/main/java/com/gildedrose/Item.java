@@ -4,7 +4,7 @@ public class Item {
 
     public String name;
 
-    public int sellIn;
+    public SellIn sellIn;
 
     public ItemQuality quality;
 
