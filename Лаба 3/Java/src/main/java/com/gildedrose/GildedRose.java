@@ -1,15 +1,9 @@
 package com.gildedrose;
 
-class GildedRose {
-    Item[] items;
+public class GildedRose {
+    private final ItemProcessor processor;
 
     public GildedRose(Item[] items) {
-        this.items = items;
-    }
-
-    public void updateInventory() {
-        for (Item item : items) {
-            InventoryItem.create(item).dailyUpdate();
-        }
+        this.processor = new ItemProcessor(items);
     }
 }
