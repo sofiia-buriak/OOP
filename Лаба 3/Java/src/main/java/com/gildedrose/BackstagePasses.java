@@ -9,20 +9,31 @@ public class BackstagePasses extends InventoryItem {
 
     @Override
     protected void updateQuality(QualityUpdater updater) {
-        updater.increase();
-        int sellInDays = fetchSellInDays();
-        if (sellInDays < 11) {
-            updater.increase();
-        }
-        if (sellInDays < 6) {
-            updater.increase();
-        }
+        increaseQuality(updater);
+        applyBonus(updater, fetchSellInDays());
     }
 
     private int fetchSellInDays() {
         ItemProperties properties = fetchItemProperties();
         SellIn sellIn = properties.retrieveSellIn();
         return sellIn.obtainDays();
+    }
+
+    private void applyBonus(QualityUpdater updater, int sellInDays) {
+        applyFirstBonus(updater, sellInDays);
+        applySecondBonus(updater, sellInDays);
+    }
+
+    private void applyFirstBonus(QualityUpdater updater, int sellInDays) {
+        if (sellInDays < 11) {
+            updater.increase();
+        }
+    }
+
+    private void applySecondBonus(QualityUpdater updater, int sellInDays) {
+        if (sellInDays < 6) {
+            updater.increase();
+        }
     }
 
     @Override
@@ -35,4 +46,3 @@ public class BackstagePasses extends InventoryItem {
     private ItemProperties fetchItemProperties() {
         return item.retrieveProperties();
     }
-}

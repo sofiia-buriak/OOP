@@ -9,11 +9,15 @@ public class AgedBrie extends InventoryItem {
 
     @Override
     protected void updateQuality(QualityUpdater updater) {
+        increaseQuality(updater);
+    }
+
+    private void increaseQuality(QualityUpdater updater) {
         updater.increase();
     }
 
     @Override
     protected void processExpired(QualityUpdater updater) {
-        updater.increase();
+        increaseQuality(updater);
     }
 }

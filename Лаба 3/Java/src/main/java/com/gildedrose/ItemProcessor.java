@@ -20,31 +20,14 @@ public class ItemProcessor {
 
     private InventoryItem createInventoryItem(Item item) {
         String itemName = item.fetchName();
-        boolean isAgedBrie = isAgedBrie(itemName);
-        if (isAgedBrie) {
-            return new AgedBrie(item);
-        }
-        boolean isBackstagePasses = isBackstagePasses(itemName);
-        if (isBackstagePasses) {
-            return new BackstagePasses(item);
-        }
-        boolean isSulfuras = isSulfuras(itemName);
-        if (isSulfuras) {
-            return new Sulfuras(item);
-        }
+        return selectInventoryItem(itemName, item);
+    }
+
+    private InventoryItem selectInventoryItem(String itemName, Item item) {
+        if (isEqual(itemName, AgedBrie.NAME)) return new AgedBrie(item);
+        if (isEqual(itemName, BackstagePasses.NAME)) return new BackstagePasses(item);
+        if (isEqual(itemName, Sulfuras.NAME)) return new Sulfuras(item);
         return new InventoryItem(item);
-    }
-
-    private boolean isAgedBrie(String itemName) {
-        return isEqual(itemName, AgedBrie.NAME);
-    }
-
-    private boolean isBackstagePasses(String itemName) {
-        return isEqual(itemName, BackstagePasses.NAME);
-    }
-
-    private boolean isSulfuras(String itemName) {
-        return isEqual(itemName, Sulfuras.NAME);
     }
 
     private boolean isEqual(String itemName, String targetName) {
