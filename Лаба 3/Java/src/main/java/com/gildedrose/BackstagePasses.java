@@ -10,7 +10,7 @@ public class BackstagePasses extends InventoryItem {
     @Override
     protected void updateQuality(QualityUpdater updater) {
         updater.increase();
-        int sellInDays = getSellInDays();
+        int sellInDays = fetchSellInDays();
         if (sellInDays < 11) {
             updater.increase();
         }
@@ -19,20 +19,20 @@ public class BackstagePasses extends InventoryItem {
         }
     }
 
-    private int getSellInDays() {
-        ItemProperties properties = getItemProperties();
-        SellIn sellIn = properties.getSellIn();
-        return sellIn.getDays();
+    private int fetchSellInDays() {
+        ItemProperties properties = fetchItemProperties();
+        SellIn sellIn = properties.retrieveSellIn();
+        return sellIn.obtainDays();
     }
 
     @Override
     protected void processExpired(QualityUpdater updater) {
-        ItemProperties properties = getItemProperties();
-        ItemQuality quality = properties.getQuality();
-        quality.setValue(new IntegerValue(0));
+        ItemProperties properties = fetchItemProperties();
+        ItemQuality quality = properties.retrieveQuality();
+        quality.assignValue(new IntegerValue(0));
     }
 
-    private ItemProperties getItemProperties() {
-        return item.getProperties();
+    private ItemProperties fetchItemProperties() {
+        return item.retrieveProperties();
     }
 }

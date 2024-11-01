@@ -9,11 +9,11 @@ public class ItemProperties {
         this.quality = quality;
     }
 
-    public SellIn getSellIn() {
+    public SellIn retrieveSellIn() {
         return sellIn;
     }
 
-    public ItemQuality getQuality() {
+    public ItemQuality retrieveQuality() {
         return quality;
     }
 }

@@ -9,8 +9,8 @@ public class ItemQuality {
         this.maxQuality = new MaxQuality();
     }
 
-    public int getIntValue() {
-        return value.getValue();
+    public int obtainIntValue() {
+        return value.fetchValue();
     }
 
     public void increase() {
@@ -25,7 +25,7 @@ public class ItemQuality {
         }
     }
 
-    public void setValue(IntegerValue value) {
+    public void assignValue(IntegerValue value) {
         this.value = value;
     }
 }

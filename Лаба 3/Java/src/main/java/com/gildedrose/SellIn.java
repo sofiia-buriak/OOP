@@ -7,8 +7,8 @@ public class SellIn {
         this.value = value;
     }
 
-    public int getDays() {
-        return value.getValue();
+    public int obtainDays() {
+        return value.fetchValue();
     }
 
     public void decrease() {

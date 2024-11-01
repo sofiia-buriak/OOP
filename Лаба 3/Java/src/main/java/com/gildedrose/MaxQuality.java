@@ -8,8 +8,8 @@ public class MaxQuality {
     }
 
     public boolean isLessThan(IntegerValue other) {
-        int otherValue = other.getValue();
-        int thisValue = value.getValue();
+        int otherValue = other.fetchValue();
+        int thisValue = value.fetchValue();
         return otherValue < thisValue;
     }
 }

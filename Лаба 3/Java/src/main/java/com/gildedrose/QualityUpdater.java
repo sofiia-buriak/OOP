@@ -8,12 +8,12 @@ public class QualityUpdater {
     }
 
     public void decrease() {
-        ItemQuality quality = properties.getQuality();
+        ItemQuality quality = properties.retrieveQuality();
         quality.decrease();
     }
 
     public void increase() {
-        ItemQuality quality = properties.getQuality();
+        ItemQuality quality = properties.retrieveQuality();
         quality.increase();
     }
 }

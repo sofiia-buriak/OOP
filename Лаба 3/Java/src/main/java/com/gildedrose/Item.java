@@ -9,11 +9,11 @@ public class Item {
         this.properties = properties;
     }
 
-    public String getName() {
-        return name.getValue();
+    public String fetchName() {
+        return name.fetchValue();
     }
 
-    public ItemProperties getProperties() {
+    public ItemProperties retrieveProperties() {
         return properties;
     }
 }

@@ -7,7 +7,7 @@ public class IntegerValue {
         this.value = value;
     }
 
-    public int getValue() {
+    public int fetchValue() {
         return value;
     }
 

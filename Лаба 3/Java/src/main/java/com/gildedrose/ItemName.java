@@ -7,7 +7,7 @@ public class ItemName {
         this.value = value;
     }
 
-    public String getValue() {
+    public String fetchValue() {
         return value;
     }
 
