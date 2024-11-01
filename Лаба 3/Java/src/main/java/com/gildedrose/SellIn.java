@@ -1,21 +1,21 @@
 package com.gildedrose;
 
 public class SellIn {
-    private int value;
+    private IntegerValue value;
 
-    public SellIn(int value) {
+    public SellIn(IntegerValue value) {
         this.value = value;
     }
 
-    public int getValue() {
-        return value;
+    public int getDays() {
+        return value.getValue();
     }
 
     public void decrease() {
-        value--;
+        value = value.decrement();
     }
 
     public boolean isExpired() {
-        return value < 0;
+        return value.isLessThan(0);
     }
 }
