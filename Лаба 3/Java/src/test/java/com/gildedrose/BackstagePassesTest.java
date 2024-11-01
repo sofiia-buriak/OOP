@@ -9,17 +9,17 @@ public class BackstagePassesTest {
     public void testUpdateQuality() {
         Item item = new Item(new ItemName("Backstage passes to a TAFKAL80ETC concert"), new ItemProperties(new SellIn(new IntegerValue(10)), new ItemQuality(new IntegerValue(20))));
         BackstagePasses backstagePasses = new BackstagePasses(item);
-        backstagePasses.updateQuality(new QualityUpdater(item.retrieveProperties()));
+        backstagePasses.updateQuality(new QualityUpdater(backstagePasses.fetchItemProperties()));
 
-        assertEquals(22, item.retrieveProperties().retrieveQuality().obtainIntValue());
+        assertEquals(22, backstagePasses.fetchItemProperties().retrieveQuality().obtainIntValue());
     }
 
     @Test
     public void testProcessExpired() {
         Item item = new Item(new ItemName("Backstage passes to a TAFKAL80ETC concert"), new ItemProperties(new SellIn(new IntegerValue(0)), new ItemQuality(new IntegerValue(20))));
         BackstagePasses backstagePasses = new BackstagePasses(item);
-        backstagePasses.processExpired(new QualityUpdater(item.retrieveProperties()));
+        backstagePasses.processExpired(new QualityUpdater(backstagePasses.fetchItemProperties()));
 
-        assertEquals(0, item.retrieveProperties().retrieveQuality().obtainIntValue());
+        assertEquals(0, backstagePasses.fetchItemProperties().retrieveQuality().obtainIntValue());
     }
 }

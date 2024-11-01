@@ -18,3 +18,4 @@ public class ItemNameTest {
         assertTrue(name.equals("Test Item"));
     }
 }
+

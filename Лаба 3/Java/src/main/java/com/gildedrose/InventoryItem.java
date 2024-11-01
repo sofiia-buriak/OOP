@@ -8,7 +8,7 @@ public class InventoryItem {
     }
 
     public void dailyUpdate() {
-        QualityUpdater updater = new QualityUpdater(item.retrieveProperties());
+        QualityUpdater updater = new QualityUpdater(fetchItemProperties());
         updateQuality(updater);
         updateExpiration();
         if (isExpired()) {
@@ -21,18 +21,22 @@ public class InventoryItem {
     }
 
     protected void updateExpiration() {
-        ItemProperties properties = item.retrieveProperties();
+        ItemProperties properties = fetchItemProperties();
         SellIn sellIn = properties.retrieveSellIn();
         sellIn.decrease();
     }
 
     protected boolean isExpired() {
-        ItemProperties properties = item.retrieveProperties();
+        ItemProperties properties = fetchItemProperties();
         SellIn sellIn = properties.retrieveSellIn();
         return sellIn.isExpired();
     }
 
     protected void processExpired(QualityUpdater updater) {
         updater.decrease();
+    }
+
+    public ItemProperties fetchItemProperties() {
+        return item.retrieveProperties();
     }
 }

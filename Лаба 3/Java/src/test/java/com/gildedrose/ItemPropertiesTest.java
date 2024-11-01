@@ -1,10 +1,10 @@
 package com.gildedrose;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ItemPropertiesTest {
-
     @Test
     public void testRetrieveSellIn() {
         SellIn sellIn = new SellIn(new IntegerValue(10));

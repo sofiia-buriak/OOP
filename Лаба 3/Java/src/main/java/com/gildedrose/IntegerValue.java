@@ -27,3 +27,4 @@ public class IntegerValue {
         return value < other;
     }
 }
+
