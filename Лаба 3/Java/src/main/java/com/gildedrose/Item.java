@@ -9,18 +9,11 @@ public class Item {
         this.properties = properties;
     }
 
-    public ItemName getName() {
-        return name;
+    public String getName() {
+        return name.getValue();
     }
 
     public ItemProperties getProperties() {
         return properties;
-    }
-
-    @Override
-    public String toString() {
-        return name.getValue() + ", " +
-                properties.getSellIn().getValue() + ", " +
-                properties.getQuality().getValue();
     }
 }
