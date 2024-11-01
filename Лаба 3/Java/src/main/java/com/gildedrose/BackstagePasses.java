@@ -1,7 +1,7 @@
 package com.gildedrose;
 
 public class BackstagePasses extends InventoryItem {
-    public static final String NAME = "Backstage passes to a TAFKAL80ETC concert";
+    public static final ItemName NAME = new ItemName("Backstage passes to a TAFKAL80ETC concert");
 
     public BackstagePasses(Item item) {
         super(item);
@@ -10,18 +10,29 @@ public class BackstagePasses extends InventoryItem {
     @Override
     protected void updateQuality(QualityUpdater updater) {
         updater.increase();
-
-        SellIn sellIn = item.getProperties().getSellIn();
-        if (sellIn.getValue() < 11) {
+        int sellInDays = getSellInDays();
+        if (sellInDays < 11) {
             updater.increase();
         }
-        if (sellIn.getValue() < 6) {
+        if (sellInDays < 6) {
             updater.increase();
         }
     }
 
+    private int getSellInDays() {
+        ItemProperties properties = getItemProperties();
+        SellIn sellIn = properties.getSellIn();
+        return sellIn.getDays();
+    }
+
     @Override
     protected void processExpired(QualityUpdater updater) {
-        item.getProperties().getQuality().setValue(0);
+        ItemProperties properties = getItemProperties();
+        ItemQuality quality = properties.getQuality();
+        quality.setValue(new IntegerValue(0));
+    }
+
+    private ItemProperties getItemProperties() {
+        return item.getProperties();
     }
 }

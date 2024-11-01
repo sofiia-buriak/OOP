@@ -21,11 +21,15 @@ public class InventoryItem {
     }
 
     protected void updateExpiration() {
-        item.getProperties().getSellIn().decrease();
+        ItemProperties properties = item.getProperties();
+        SellIn sellIn = properties.getSellIn();
+        sellIn.decrease();
     }
 
     protected boolean isExpired() {
-        return item.getProperties().getSellIn().isExpired();
+        ItemProperties properties = item.getProperties();
+        SellIn sellIn = properties.getSellIn();
+        return sellIn.isExpired();
     }
 
     protected void processExpired(QualityUpdater updater) {
