@@ -1,4 +1,4 @@
-package com.example;
+package org.example;
 
 public class MediaLibraryDemo {
     public static void main(String[] args) {
