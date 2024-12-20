@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Iterator;
+
 public class MediaLibraryDemo {
     public static void main(String[] args) {
         MediaLibrary library = new MediaLibrary();
