@@ -13,6 +13,7 @@ import org.example.model.VideoFile;
 import org.example.service.MediaRemoveService;
 import org.example.service.MediaSearchService;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -24,9 +25,9 @@ public class MediaLibraryTest {
     @BeforeEach
     public void setUp() {
         realLibrary = new MediaLibrary(new MediaSearchService(), new MediaRemoveService());
-
         proxyLibrary = new MediaLibraryProxy(realLibrary);
 
+        // Додаємо медіафайли для тестів
         proxyLibrary.addMedia(new AudioFile("song.mp3", 1024, "2024-12-01"));
         proxyLibrary.addMedia(new VideoFile("movie.mp4", 20480, "2024-12-02"));
         proxyLibrary.addMedia(new ImageFile("picture.jpg", 512, "2024-12-03"));
@@ -45,7 +46,7 @@ public class MediaLibraryTest {
 
     @Test
     public void testSortedIterator() {
-        Iterator<MediaFile> sortedIterator = proxyLibrary.sortedIterator((f1, f2) -> Integer.compare(f1.getSize(), f2.getSize()));
+        Iterator<MediaFile> sortedIterator = proxyLibrary.sortedIterator(Comparator.comparingInt(MediaFile::getSize));
         assertTrue(sortedIterator.hasNext());
         assertEquals("picture.jpg", sortedIterator.next().getName());
         assertTrue(sortedIterator.hasNext());
@@ -78,7 +79,42 @@ public class MediaLibraryTest {
         proxyLibrary.addMedia(new VideoFile("trailer.mp4", 10240, "2024-12-05"));
 
         List<MediaFile> allFiles = realLibrary.search(file -> true);
-        assertEquals(5, allFiles.size()); 
+        assertEquals(5, allFiles.size());
         assertTrue(allFiles.stream().anyMatch(file -> file.getName().equals("trailer.mp4")));
+    }
+
+    @Test
+    public void testSearchCache() {
+        List<MediaFile> firstSearch = proxyLibrary.search(file -> file.getName().contains(".mp3"));
+        assertEquals(2, firstSearch.size());
+
+        List<MediaFile> secondSearch = proxyLibrary.search(file -> file.getName().contains(".mp3"));
+        assertEquals(firstSearch, secondSearch);
+    }
+
+    @Test
+    public void testRemoveMediaAfterSearch() {
+        List<MediaFile> initialSearch = proxyLibrary.search(file -> true);
+        assertEquals(4, initialSearch.size());
+
+        proxyLibrary.removeMedia(file -> file.getType() == MediaType.IMAGE);
+
+        List<MediaFile> updatedSearch = proxyLibrary.search(file -> true);
+        assertEquals(3, updatedSearch.size());
+        assertFalse(updatedSearch.stream().anyMatch(file -> file.getName().equals("picture.jpg")));
+    }
+
+    @Test
+    public void testSortedIteratorWithReverseOrder() {
+        Iterator<MediaFile> sortedIterator = proxyLibrary.sortedIterator(Comparator.comparingInt(MediaFile::getSize).reversed());
+        assertTrue(sortedIterator.hasNext());
+        assertEquals("movie.mp4", sortedIterator.next().getName());
+        assertTrue(sortedIterator.hasNext());
+        assertEquals("podcast.mp3", sortedIterator.next().getName());
+        assertTrue(sortedIterator.hasNext());
+        assertEquals("song.mp3", sortedIterator.next().getName());
+        assertTrue(sortedIterator.hasNext());
+        assertEquals("picture.jpg", sortedIterator.next().getName());
+        assertFalse(sortedIterator.hasNext());
     }
 }

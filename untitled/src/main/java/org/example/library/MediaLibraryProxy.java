@@ -3,12 +3,15 @@ package org.example.library;
 import org.example.model.MediaFile;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 public class MediaLibraryProxy implements MediaLibraryInterface {
     private final MediaLibrary realLibrary;
+    private final Map<String, List<MediaFile>> searchCache = new HashMap<>();
 
     public MediaLibraryProxy(MediaLibrary realLibrary) {
         this.realLibrary = realLibrary;
@@ -34,8 +37,16 @@ public class MediaLibraryProxy implements MediaLibraryInterface {
 
     @Override
     public List<MediaFile> search(Predicate<MediaFile> filter) {
+        String cacheKey = filter.toString();
+        if (searchCache.containsKey(cacheKey)) {
+            System.out.println("Проксі: Використовуємо кеш для пошуку за предикатом: " + filter);
+            return searchCache.get(cacheKey);
+        }
+
         System.out.println("Проксі: Пошук медіафайлів за предикатом: " + filter);
-        return realLibrary.search(filter);
+        List<MediaFile> result = realLibrary.search(filter);
+        searchCache.put(cacheKey, result);
+        return result;
     }
 
     @Override
