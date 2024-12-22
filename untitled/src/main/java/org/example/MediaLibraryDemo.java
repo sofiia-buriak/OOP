@@ -7,9 +7,10 @@ public class MediaLibraryDemo {
     public static void main(String[] args) {
         MediaLibrary library = new MediaLibrary();
 
-        library.addMedia(new MediaFile("song.mp3", MediaType.AUDIO, 1024, "2024-12-01"));
-        library.addMedia(new MediaFile("movie.mp4", MediaType.VIDEO, 20480, "2024-12-02"));
-        library.addMedia(new MediaFile("picture.jpg", MediaType.IMAGE, 512, "2024-12-03"));
+        library.addMedia(new AudioFile("song.mp3", 1024, "2024-12-01"));
+        library.addMedia(new VideoFile("movie.mp4", 20480, "2024-12-02"));
+        library.addMedia(new ImageFile("picture.jpg", 512, "2024-12-03"));
+        library.addMedia(new AudioFile("podcast.mp3", 2048, "2024-12-04"));
 
         System.out.println("Файли типу AUDIO:");
         Iterator<MediaFile> iterator = library.iterator(file -> file.getType() == MediaType.AUDIO);

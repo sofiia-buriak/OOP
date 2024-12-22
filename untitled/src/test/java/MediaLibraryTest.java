@@ -2,9 +2,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.example.AudioFile;
+import org.example.ImageFile;
 import org.example.MediaFile;
 import org.example.MediaLibrary;
 import org.example.MediaType;
+import org.example.VideoFile;
 
 import java.util.Iterator;
 import java.util.List;
@@ -16,11 +19,12 @@ public class MediaLibraryTest {
     @BeforeEach
     public void setUp() {
         library = new MediaLibrary();
-        library.addMedia(new MediaFile("song.mp3", MediaType.AUDIO, 1024, "2024-12-01"));
-        library.addMedia(new MediaFile("movie.mp4", MediaType.VIDEO, 20480, "2024-12-02"));
-        library.addMedia(new MediaFile("picture.jpg", MediaType.IMAGE, 512, "2024-12-03"));
-        library.addMedia(new MediaFile("podcast.mp3", MediaType.AUDIO, 2048, "2024-12-04"));
+        library.addMedia(new AudioFile("song.mp3", 1024, "2024-12-01"));
+        library.addMedia(new VideoFile("movie.mp4", 20480, "2024-12-02"));
+        library.addMedia(new ImageFile("picture.jpg", 512, "2024-12-03"));
+        library.addMedia(new AudioFile("podcast.mp3", 2048, "2024-12-04"));
     }
+
 
     @Test
     public void testIteratorWithFilter() {
