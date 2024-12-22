@@ -9,12 +9,10 @@ import java.util.Comparator;
 public class MediaLibrary implements MediaLibraryInterface {
     private final List<MediaFile> mediaFiles = new ArrayList<>();
     private final SearchService searchService;
-    private final SortService sortService;
     private final RemoveService removeService;
 
-    public MediaLibrary(SearchService searchService, SortService sortService, RemoveService removeService) {
+    public MediaLibrary(SearchService searchService, RemoveService removeService) {
         this.searchService = searchService;
-        this.sortService = sortService;
         this.removeService = removeService;
     }
 
@@ -25,13 +23,14 @@ public class MediaLibrary implements MediaLibraryInterface {
 
     @Override
     public Iterator<MediaFile> iterator(Predicate<MediaFile> filter) {
-        return mediaFiles.stream().filter(filter).iterator();
+        return new FilteredIterator(mediaFiles, filter);
     }
 
     @Override
     public Iterator<MediaFile> sortedIterator(Comparator<MediaFile> comparator) {
-        return sortService.sort(mediaFiles, comparator).iterator();
+        return new SortedIterator(mediaFiles, comparator);
     }
+
 
     @Override
     public List<MediaFile> search(Predicate<MediaFile> filter) {
