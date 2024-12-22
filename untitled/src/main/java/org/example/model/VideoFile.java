@@ -1,4 +1,6 @@
-package org.example;
+package org.example.model;
+
+import org.example.enums.MediaType;
 
 public class VideoFile extends MediaFile {
     public VideoFile(String name, int size, String date) {

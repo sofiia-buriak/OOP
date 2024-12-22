@@ -2,18 +2,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.example.AudioFile;
-import org.example.ImageFile;
-import org.example.MediaFile;
-import org.example.MediaLibrary;
-import org.example.MediaRemoveService;
-import org.example.MediaSearchService;
-import org.example.MediaSortService;
-import org.example.MediaType;
-import org.example.RemoveService;
-import org.example.SearchService;
-import org.example.SortService;
 import org.example.VideoFile;
+import org.example.enums.MediaType;
+import org.example.library.MediaLibrary;
+import org.example.model.AudioFile;
+import org.example.model.ImageFile;
+import org.example.model.MediaFile;
+import org.example.service.MediaRemoveService;
+import org.example.service.MediaSearchService;
+import org.example.service.RemoveService;
+import org.example.service.SearchService;
 
 import java.util.Iterator;
 import java.util.List;
@@ -25,10 +23,9 @@ public class MediaLibraryTest {
     @BeforeEach
     public void setUp() {
         SearchService searchService = new MediaSearchService();
-        SortService sortService = new MediaSortService();
         RemoveService removeService = new MediaRemoveService();
 
-        library = new MediaLibrary(searchService, sortService, removeService);
+        library = new MediaLibrary(searchService, removeService);
         library.addMedia(new AudioFile("song.mp3", 1024, "2024-12-01"));
         library.addMedia(new VideoFile("movie.mp4", 20480, "2024-12-02"));
         library.addMedia(new ImageFile("picture.jpg", 512, "2024-12-03"));

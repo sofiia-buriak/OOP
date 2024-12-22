@@ -1,9 +1,11 @@
-package org.example;
+package org.example.iterator;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+
+import org.example.model.MediaFile;
 
 public class SortedIterator implements Iterator<MediaFile> {
     private final Iterator<MediaFile> iterator;

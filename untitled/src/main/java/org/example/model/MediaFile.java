@@ -1,4 +1,6 @@
-package org.example;
+package org.example.model;
+
+import org.example.enums.MediaType;
 
 public abstract class MediaFile {
     private final String name;

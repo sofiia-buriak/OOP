@@ -1,9 +1,11 @@
-package org.example;
+package org.example.library;
 
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
+
+import org.example.model.MediaFile;
 
 public interface MediaLibraryInterface {
     void addMedia(MediaFile file);

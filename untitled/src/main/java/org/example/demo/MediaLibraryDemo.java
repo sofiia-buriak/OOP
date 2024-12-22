@@ -1,15 +1,25 @@
-package org.example;
+package org.example.demo;
 
 import java.util.Iterator;
 import java.util.List;
 
+import org.example.enums.MediaType;
+import org.example.library.MediaLibrary;
+import org.example.model.AudioFile;
+import org.example.model.ImageFile;
+import org.example.model.MediaFile;
+import org.example.model.VideoFile;
+import org.example.service.MediaRemoveService;
+import org.example.service.MediaSearchService;
+import org.example.service.RemoveService;
+import org.example.service.SearchService;
+
 public class MediaLibraryDemo {
     public static void main(String[] args) {
         SearchService searchService = new MediaSearchService();
-        SortService sortService = new MediaSortService();
         RemoveService removeService = new MediaRemoveService();
+        MediaLibrary library = new MediaLibrary(searchService, removeService);
 
-        MediaLibrary library = new MediaLibrary(searchService, sortService, removeService);
         library.addMedia(new AudioFile("song.mp3", 1024, "2024-12-01"));
         library.addMedia(new VideoFile("movie.mp4", 20480, "2024-12-02"));
         library.addMedia(new ImageFile("picture.jpg", 512, "2024-12-03"));

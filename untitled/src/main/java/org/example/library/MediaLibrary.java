@@ -1,8 +1,15 @@
-package org.example;
+package org.example.library;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
+
+import org.example.iterator.FilteredIterator;
+import org.example.iterator.SortedIterator;
+import org.example.model.MediaFile;
+import org.example.service.RemoveService;
+import org.example.service.SearchService;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 
