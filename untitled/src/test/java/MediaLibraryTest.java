@@ -6,7 +6,13 @@ import org.example.AudioFile;
 import org.example.ImageFile;
 import org.example.MediaFile;
 import org.example.MediaLibrary;
+import org.example.MediaRemoveService;
+import org.example.MediaSearchService;
+import org.example.MediaSortService;
 import org.example.MediaType;
+import org.example.RemoveService;
+import org.example.SearchService;
+import org.example.SortService;
 import org.example.VideoFile;
 
 import java.util.Iterator;
@@ -18,13 +24,16 @@ public class MediaLibraryTest {
 
     @BeforeEach
     public void setUp() {
-        library = new MediaLibrary();
+        SearchService searchService = new MediaSearchService();
+        SortService sortService = new MediaSortService();
+        RemoveService removeService = new MediaRemoveService();
+
+        library = new MediaLibrary(searchService, sortService, removeService);
         library.addMedia(new AudioFile("song.mp3", 1024, "2024-12-01"));
         library.addMedia(new VideoFile("movie.mp4", 20480, "2024-12-02"));
         library.addMedia(new ImageFile("picture.jpg", 512, "2024-12-03"));
         library.addMedia(new AudioFile("podcast.mp3", 2048, "2024-12-04"));
     }
-
 
     @Test
     public void testIteratorWithFilter() {

@@ -3,12 +3,20 @@ package org.example;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.Comparator;
 
 public class MediaLibrary implements MediaLibraryInterface {
     private final List<MediaFile> mediaFiles = new ArrayList<>();
+    private final SearchService searchService;
+    private final SortService sortService;
+    private final RemoveService removeService;
+
+    public MediaLibrary(SearchService searchService, SortService sortService, RemoveService removeService) {
+        this.searchService = searchService;
+        this.sortService = sortService;
+        this.removeService = removeService;
+    }
 
     @Override
     public void addMedia(MediaFile file) {
@@ -22,18 +30,16 @@ public class MediaLibrary implements MediaLibraryInterface {
 
     @Override
     public Iterator<MediaFile> sortedIterator(Comparator<MediaFile> comparator) {
-        List<MediaFile> sortedList = new ArrayList<>(mediaFiles);
-        sortedList.sort(comparator);
-        return sortedList.iterator();
+        return sortService.sort(mediaFiles, comparator).iterator();
     }
 
     @Override
     public List<MediaFile> search(Predicate<MediaFile> filter) {
-        return mediaFiles.stream().filter(filter).collect(Collectors.toList());
+        return searchService.search(mediaFiles, filter);
     }
 
     @Override
     public void removeMedia(Predicate<MediaFile> filter) {
-        mediaFiles.removeIf(filter);
+        removeService.remove(mediaFiles, filter);
     }
 }

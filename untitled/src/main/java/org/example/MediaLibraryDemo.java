@@ -5,8 +5,11 @@ import java.util.List;
 
 public class MediaLibraryDemo {
     public static void main(String[] args) {
-        MediaLibrary library = new MediaLibrary();
+        SearchService searchService = new MediaSearchService();
+        SortService sortService = new MediaSortService();
+        RemoveService removeService = new MediaRemoveService();
 
+        MediaLibrary library = new MediaLibrary(searchService, sortService, removeService);
         library.addMedia(new AudioFile("song.mp3", 1024, "2024-12-01"));
         library.addMedia(new VideoFile("movie.mp4", 20480, "2024-12-02"));
         library.addMedia(new ImageFile("picture.jpg", 512, "2024-12-03"));
