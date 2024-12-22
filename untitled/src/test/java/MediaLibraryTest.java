@@ -2,7 +2,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.example.VideoFile;
+import org.example.model.VideoFile;
 import org.example.enums.MediaType;
 import org.example.library.MediaLibrary;
 import org.example.model.AudioFile;
