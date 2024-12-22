@@ -7,18 +7,18 @@ import java.util.function.Predicate;
 import org.example.iterator.FilteredIterator;
 import org.example.iterator.SortedIterator;
 import org.example.model.MediaFile;
-import org.example.service.RemoveService;
-import org.example.service.SearchService;
+import org.example.service.MediaRemoveService;
+import org.example.service.MediaSearchService;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 
 public class MediaLibrary implements MediaLibraryInterface {
     private final List<MediaFile> mediaFiles = new ArrayList<>();
-    private final SearchService searchService;
-    private final RemoveService removeService;
+    private final MediaSearchService searchService;
+    private final MediaRemoveService removeService;
 
-    public MediaLibrary(SearchService searchService, RemoveService removeService) {
+    public MediaLibrary(MediaSearchService searchService, MediaRemoveService removeService) {
         this.searchService = searchService;
         this.removeService = removeService;
     }
@@ -37,7 +37,6 @@ public class MediaLibrary implements MediaLibraryInterface {
     public Iterator<MediaFile> sortedIterator(Comparator<MediaFile> comparator) {
         return new SortedIterator(mediaFiles, comparator);
     }
-
 
     @Override
     public List<MediaFile> search(Predicate<MediaFile> filter) {

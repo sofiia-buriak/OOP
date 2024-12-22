@@ -12,8 +12,6 @@ import org.example.model.MediaFile;
 import org.example.model.VideoFile;
 import org.example.service.MediaRemoveService;
 import org.example.service.MediaSearchService;
-import org.example.service.RemoveService;
-import org.example.service.SearchService;
 
 import java.util.Iterator;
 import java.util.List;
@@ -25,9 +23,7 @@ public class MediaLibraryTest {
 
     @BeforeEach
     public void setUp() {
-        SearchService searchService = new MediaSearchService();
-        RemoveService removeService = new MediaRemoveService();
-        realLibrary = new MediaLibrary(searchService, removeService);
+        realLibrary = new MediaLibrary(new MediaSearchService(), new MediaRemoveService());
 
         proxyLibrary = new MediaLibraryProxy(realLibrary);
 
@@ -80,8 +76,9 @@ public class MediaLibraryTest {
     @Test
     public void testProxyAddMedia() {
         proxyLibrary.addMedia(new VideoFile("trailer.mp4", 10240, "2024-12-05"));
-        List<MediaFile> allFiles = proxyLibrary.search(file -> true);
-        assertEquals(5, allFiles.size());
+
+        List<MediaFile> allFiles = realLibrary.search(file -> true);
+        assertEquals(5, allFiles.size()); 
         assertTrue(allFiles.stream().anyMatch(file -> file.getName().equals("trailer.mp4")));
     }
 }
