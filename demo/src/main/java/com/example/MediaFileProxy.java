@@ -6,6 +6,7 @@ import java.util.Map;
 
 public class MediaFileProxy {
     private MediaLibrary mediaLibrary;
+    private MediaFilter mediaFilter = new MediaFilter();
     private Map<MediaType, List<MediaFile>> cachedMedia = new HashMap<>();
 
     public MediaFileProxy(MediaLibrary mediaLibrary) {
@@ -14,7 +15,8 @@ public class MediaFileProxy {
 
     public MediaIterator getIterator(MediaType type) {
         if (!cachedMedia.containsKey(type)) {
-            cachedMedia.put(type, mediaLibrary.getMediaByType(type));
+            List<MediaFile> allMedia = mediaLibrary.getAllMedia();
+            cachedMedia.put(type, mediaFilter.filterByType(allMedia, type));
         }
         return new MediaIteratorImpl(cachedMedia.get(type));
     }
