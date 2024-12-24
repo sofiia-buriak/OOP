@@ -3,5 +3,6 @@ package com.example;
 import java.util.List;
 
 public interface MediaFilterStrategy {
-    List<MediaFile> filter(List<MediaFile> mediaFiles);
+    List<MediaFile> filter(List<MediaFile> mediaFiles, MediaType type);
 }
+

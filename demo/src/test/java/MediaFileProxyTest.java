@@ -6,6 +6,7 @@ import com.example.MediaFileProxy;
 import com.example.MediaIterator;
 import com.example.MediaLibrary;
 import com.example.MediaType;
+import com.example.TypeFilterStrategy;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,7 +22,7 @@ public class MediaFileProxyTest {
         mediaLibrary.addMedia(new MediaFile("photo1.jpg", MediaType.PHOTO));
         mediaLibrary.addMedia(new MediaFile("video2.mp4", MediaType.VIDEO));
 
-        mediaFileProxy = new MediaFileProxy(mediaLibrary);
+        mediaFileProxy = new MediaFileProxy(mediaLibrary, new TypeFilterStrategy());
     }
 
     @Test

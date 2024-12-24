@@ -5,6 +5,7 @@ import com.example.MediaFileProxy;
 import com.example.MediaIterator;
 import com.example.MediaLibrary;
 import com.example.MediaType;
+import com.example.TypeFilterStrategy;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,7 +19,7 @@ public class MediaLibraryDemoTest {
         library.addMedia(new MediaFile("audio1.mp3", MediaType.AUDIO));
         library.addMedia(new MediaFile("video2.mp4", MediaType.VIDEO));
 
-        MediaFileProxy proxy = new MediaFileProxy(library);
+        MediaFileProxy proxy = new MediaFileProxy(library, new TypeFilterStrategy());
         MediaIterator iterator = proxy.getIterator(MediaType.VIDEO);
 
         assertTrue(iterator.hasNext());
@@ -36,7 +37,7 @@ public class MediaLibraryDemoTest {
         library.addMedia(new MediaFile("audio1.mp3", MediaType.AUDIO));
         library.addMedia(new MediaFile("video2.mp4", MediaType.VIDEO));
 
-        MediaFileProxy proxy = new MediaFileProxy(library);
+        MediaFileProxy proxy = new MediaFileProxy(library, new TypeFilterStrategy());
 
         MediaIterator iterator = proxy.getIterator(MediaType.VIDEO);
         assertTrue(iterator.hasNext());
@@ -50,6 +51,78 @@ public class MediaLibraryDemoTest {
         assertEquals("video1.mp4", iterator.next().getName());
         assertTrue(iterator.hasNext());
         assertEquals("video2.mp4", iterator.next().getName());
+        assertFalse(iterator.hasNext());
+    }
+
+    @Test
+    public void testAudioIterator() {
+        MediaLibrary library = new MediaLibrary();
+        library.addMedia(new MediaFile("video1.mp4", MediaType.VIDEO));
+        library.addMedia(new MediaFile("audio1.mp3", MediaType.AUDIO));
+        library.addMedia(new MediaFile("audio2.mp3", MediaType.AUDIO));
+
+        MediaFileProxy proxy = new MediaFileProxy(library, new TypeFilterStrategy());
+        MediaIterator iterator = proxy.getIterator(MediaType.AUDIO);
+
+        assertTrue(iterator.hasNext());
+        assertEquals("audio1.mp3", iterator.next().getName());
+        assertTrue(iterator.hasNext());
+        assertEquals("audio2.mp3", iterator.next().getName());
+        assertFalse(iterator.hasNext());
+    }
+
+    @Test
+    public void testPhotoIterator() {
+        MediaLibrary library = new MediaLibrary();
+        library.addMedia(new MediaFile("photo1.jpg", MediaType.PHOTO));
+        library.addMedia(new MediaFile("video1.mp4", MediaType.VIDEO));
+        library.addMedia(new MediaFile("photo2.jpg", MediaType.PHOTO));
+
+        MediaFileProxy proxy = new MediaFileProxy(library, new TypeFilterStrategy());
+        MediaIterator iterator = proxy.getIterator(MediaType.PHOTO);
+
+        assertTrue(iterator.hasNext());
+        assertEquals("photo1.jpg", iterator.next().getName());
+        assertTrue(iterator.hasNext());
+        assertEquals("photo2.jpg", iterator.next().getName());
+        assertFalse(iterator.hasNext());
+    }
+
+    @Test
+    public void testEmptyLibrary() {
+        MediaLibrary library = new MediaLibrary();
+        MediaFileProxy proxy = new MediaFileProxy(library, new TypeFilterStrategy());
+
+        MediaIterator iterator = proxy.getIterator(MediaType.VIDEO);
+        assertFalse(iterator.hasNext());
+        assertThrows(IndexOutOfBoundsException.class, () -> iterator.next());
+    }
+
+    @Test
+    public void testMixedMediaTypes() {
+        MediaLibrary library = new MediaLibrary();
+        library.addMedia(new MediaFile("video1.mp4", MediaType.VIDEO));
+        library.addMedia(new MediaFile("photo1.jpg", MediaType.PHOTO));
+        library.addMedia(new MediaFile("audio1.mp3", MediaType.AUDIO));
+        library.addMedia(new MediaFile("video2.mp4", MediaType.VIDEO));
+
+        MediaFileProxy proxy = new MediaFileProxy(library, new TypeFilterStrategy());
+
+        MediaIterator iterator = proxy.getIterator(MediaType.VIDEO);
+        assertTrue(iterator.hasNext());
+        assertEquals("video1.mp4", iterator.next().getName());
+        assertTrue(iterator.hasNext());
+        assertEquals("video2.mp4", iterator.next().getName());
+        assertFalse(iterator.hasNext());
+
+        iterator = proxy.getIterator(MediaType.AUDIO);
+        assertTrue(iterator.hasNext());
+        assertEquals("audio1.mp3", iterator.next().getName());
+        assertFalse(iterator.hasNext());
+
+        iterator = proxy.getIterator(MediaType.PHOTO);
+        assertTrue(iterator.hasNext());
+        assertEquals("photo1.jpg", iterator.next().getName());
         assertFalse(iterator.hasNext());
     }
 }

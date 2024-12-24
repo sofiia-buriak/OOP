@@ -8,7 +8,8 @@ public class MediaLibraryDemo {
         library.addMedia(new MediaFile("audio1.mp3", MediaType.AUDIO));
         library.addMedia(new MediaFile("video2.mp4", MediaType.VIDEO));
 
-        MediaFileProxy proxy = new MediaFileProxy(library);
+        MediaFilterStrategy typeFilter = new TypeFilterStrategy();
+        MediaFileProxy proxy = new MediaFileProxy(library, typeFilter);
 
         System.out.println("Fetching video files (first time - loading from library):");
         MediaIterator iterator = proxy.getIterator(MediaType.VIDEO);
@@ -23,7 +24,7 @@ public class MediaLibraryDemo {
             MediaFile mediaFile = iterator.next();
             System.out.println("Loaded: " + mediaFile.getName());
         }
-
+        
         System.out.println("\nFetching audio files:");
         iterator = proxy.getIterator(MediaType.AUDIO);
         while (iterator.hasNext()) {
