@@ -5,18 +5,16 @@ import java.util.List;
 
 public class MediaFileProxy {
     private MediaLibrary mediaLibrary;
-    private List<MediaFile> cachedMedia;
+    private List<MediaFile> cachedMedia = new ArrayList<>();
 
     public MediaFileProxy(MediaLibrary mediaLibrary) {
         this.mediaLibrary = mediaLibrary;
-        this.cachedMedia = new ArrayList<>();
     }
 
     public MediaIterator getIterator(MediaType type) {
-        return null;
-    }
-
-    private List<MediaFile> loadMedia(MediaType type) {
-        return null;
+        if (cachedMedia.isEmpty()) {
+            cachedMedia = mediaLibrary.getMediaByType(type);
+        }
+        return new MediaIteratorImpl(cachedMedia);
     }
 }
