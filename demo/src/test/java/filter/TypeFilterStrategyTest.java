@@ -1,22 +1,23 @@
 package filter;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.example.filter.MediaFilter;
 import com.example.model.MediaFile;
 import com.example.model.MediaType;
+import com.example.filter.TypeFilterStrategy;
 
 import java.util.Arrays;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MediaFilterTest {
+public class TypeFilterStrategyTest {
 
-    private MediaFilter mediaFilter;
+    private TypeFilterStrategy typeFilterStrategy;
 
     @BeforeEach
     public void setUp() {
-        mediaFilter = new MediaFilter();
+        typeFilterStrategy = new TypeFilterStrategy();
     }
 
     @Test
@@ -27,7 +28,7 @@ public class MediaFilterTest {
                 new MediaFile("video2.mp4", MediaType.VIDEO)
         );
 
-        List<MediaFile> filteredMedia = mediaFilter.filterByType(mediaFiles, MediaType.VIDEO);
+        List<MediaFile> filteredMedia = typeFilterStrategy.filter(mediaFiles, MediaType.VIDEO);
         assertEquals(2, filteredMedia.size());
         assertEquals("video1.mp4", filteredMedia.get(0).getName());
         assertEquals("video2.mp4", filteredMedia.get(1).getName());
