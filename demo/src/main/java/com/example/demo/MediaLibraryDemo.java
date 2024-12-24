@@ -1,4 +1,12 @@
-package com.example;
+package com.example.demo;
+
+import com.example.filter.MediaFilterStrategy;
+import com.example.filter.TypeFilterStrategy;
+import com.example.iterator.MediaIterator;
+import com.example.library.MediaLibrary;
+import com.example.model.MediaFile;
+import com.example.model.MediaType;
+import com.example.proxy.MediaFileProxy;
 
 public class MediaLibraryDemo {
     public static void main(String[] args) {
@@ -24,7 +32,7 @@ public class MediaLibraryDemo {
             MediaFile mediaFile = iterator.next();
             System.out.println("Loaded: " + mediaFile.getName());
         }
-        
+
         System.out.println("\nFetching audio files:");
         iterator = proxy.getIterator(MediaType.AUDIO);
         while (iterator.hasNext()) {

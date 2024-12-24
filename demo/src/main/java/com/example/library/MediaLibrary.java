@@ -1,6 +1,9 @@
-package com.example;
+package com.example.library;
 
 import java.util.List;
+
+import com.example.model.MediaFile;
+
 import java.util.ArrayList;
 
 public class MediaLibrary {

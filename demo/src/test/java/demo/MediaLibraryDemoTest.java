@@ -1,11 +1,12 @@
+package demo;
 import org.junit.jupiter.api.Test;
 
-import com.example.MediaFile;
-import com.example.MediaFileProxy;
-import com.example.MediaIterator;
-import com.example.MediaLibrary;
-import com.example.MediaType;
-import com.example.TypeFilterStrategy;
+import com.example.filter.TypeFilterStrategy;
+import com.example.iterator.MediaIterator;
+import com.example.library.MediaLibrary;
+import com.example.model.MediaFile;
+import com.example.model.MediaType;
+import com.example.proxy.MediaFileProxy;
 
 import static org.junit.jupiter.api.Assertions.*;
 

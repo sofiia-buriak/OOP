@@ -1,6 +1,8 @@
-package com.example;
+package com.example.iterator;
 
 import java.util.List;
+
+import com.example.model.MediaFile;
 
 public class MediaIteratorImpl implements MediaIterator {
     private List<MediaFile> mediaFiles;

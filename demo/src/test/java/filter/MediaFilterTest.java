@@ -1,9 +1,10 @@
+package filter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.example.MediaFile;
-import com.example.MediaFilter;
-import com.example.MediaType;
+import com.example.filter.MediaFilter;
+import com.example.model.MediaFile;
+import com.example.model.MediaType;
 
 import java.util.Arrays;
 import java.util.List;

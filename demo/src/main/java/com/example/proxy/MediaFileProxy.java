@@ -1,8 +1,15 @@
-package com.example;
+package com.example.proxy;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.example.filter.MediaFilterStrategy;
+import com.example.iterator.MediaIterator;
+import com.example.iterator.MediaIteratorImpl;
+import com.example.library.MediaLibrary;
+import com.example.model.MediaFile;
+import com.example.model.MediaType;
 
 public class MediaFileProxy {
     private MediaLibrary mediaLibrary;

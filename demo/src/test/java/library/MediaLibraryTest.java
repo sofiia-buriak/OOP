@@ -1,9 +1,10 @@
+package library;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.example.MediaFile;
-import com.example.MediaLibrary;
-import com.example.MediaType;
+import com.example.library.MediaLibrary;
+import com.example.model.MediaFile;
+import com.example.model.MediaType;
 
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,4 +1,4 @@
-package com.example;
+package com.example.model;
 
 public class MediaFile {
     private String name;

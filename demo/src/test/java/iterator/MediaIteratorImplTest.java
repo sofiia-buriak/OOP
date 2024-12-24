@@ -1,10 +1,11 @@
+package iterator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.example.MediaFile;
-import com.example.MediaIterator;
-import com.example.MediaIteratorImpl;
-import com.example.MediaType;
+import com.example.iterator.MediaIterator;
+import com.example.iterator.MediaIteratorImpl;
+import com.example.model.MediaFile;
+import com.example.model.MediaType;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,7 +1,8 @@
+package model;
 import org.junit.jupiter.api.Test;
 
-import com.example.MediaFile;
-import com.example.MediaType;
+import com.example.model.MediaFile;
+import com.example.model.MediaType;
 
 import static org.junit.jupiter.api.Assertions.*;
 
